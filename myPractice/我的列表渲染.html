@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="demo">
+    <ul>
+        <li v-for="(p,index) in persons">
+            {{index}} --- {{p.name}} --- {{p.age}}
+            ---- <button>更新</button>
+            ---- <button>删除</button>
+        </li>
+    </ul>
+
+</div>
+
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: "#demo",
+        data: {
+            persons: [
+                {name: 'Tom', age: 18},
+                {name: 'Jack', age: 17},
+                {name: 'Bob', age: 19},
+                {name: 'Mary', age: 16}
+            ]
+        },
+        methods:{
+
+        }
+    })
+</script>
+</body>
+</html>
