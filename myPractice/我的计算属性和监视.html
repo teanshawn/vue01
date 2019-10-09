@@ -5,6 +5,60 @@
     <title>Title</title>
 </head>
 <body>
+<div id="demo">
+    姓: <input type="text" placeholder="First Name" v-model="firstName"><br>
+    名: <input type="text" placeholder="Last Name" v-model="lastName"><br>
+    <!--fullName1是根据fistName和lastName计算产生-->
+    姓名1(单向): <input type="text" placeholder="Full Name1" v-model="fullName1"><br>
+    姓名2(单向): <input type="text" placeholder="Full Name2" v-model="fullName2"><br>
+    姓名3(双向): <input type="text" placeholder="Full Name3" v-model="fullName3"><br>
 
+    <p>{{firstName}}</p>
+    <p>{{lastName}}</p>
+    <p>{{fullName1}}</p>
+    <p>{{fullName3}}</p>
+</div>
 </body>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+    const vm = new Vue({
+        el: "#demo",
+        data: {
+            firstName: "micheal",
+            lastName: "scofield",
+            // fullName2:"123"
+        },
+        computed: {
+            fullName1() {
+                console.log('fullName1')
+                return this.firstName + "-" + this.lastName
+            },
+            fullName2(){
+                console.log('fullName2被调用了。。。',this.firstName)
+            },
+            fullName3: {
+                get() {
+                    console.log('fullName3 get()')
+                    return this.firstName + "-" + this.lastName
+                },
+                set(value) {
+                    console.log('fullName3 set()', value)
+                    let ts = value.split("-")
+                    this.firstName = ts[0]
+                    this.lastName = ts[1]
+                }
+            }
+        },
+        // watch: {
+        //     firstName: function (value) {
+        //         this.fullName2 = value + '-' + this.lastName
+        //     }
+        // }
+    });
+    // vm.$watch("lastName",function (value) {
+    //     console.log('$watch lastName', value)
+    //     // 更新fullName2
+    //     this.fullName2 = this.firstName + '-' + value
+    // })
+</script>
 </html>

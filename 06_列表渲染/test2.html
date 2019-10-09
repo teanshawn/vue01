@@ -46,6 +46,15 @@
                 // 取出相关数据
                 const {searchName, persons, orderType} = this
                 let arr = [...persons]
+                // let arr2 = persons
+                // console.log("...persons",arr)
+                // console.log("persons",arr2)
+                //
+                // array = [1,2,3,4]
+                // testArr=[...array]
+                // testArr2=array
+                // console.log("...persons",testArr)
+                // console.log("persons",testArr2)
                 // 过滤数组
                 if (searchName.trim()) {
                     arr = persons.filter(p => p.name.indexOf(searchName) !== -1)

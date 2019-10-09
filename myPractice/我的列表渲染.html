@@ -7,13 +7,26 @@
 <body>
 
 <div id="demo">
+    <input type="text" v-model="searchName">
     <ul>
-        <li v-for="(p,index) in persons">
+        <li v-for="(p,index) in filterPersons">
             {{index}} --- {{p.name}} --- {{p.age}}
-            ---- <button>更新</button>
-            ---- <button>删除</button>
+            ----
+            <button @click="updateP(index,{name:123,age:33})">更新</button>
+            ----
+            <button @click="deleteP(index)">删除</button>
+            ----
+            <button @click="shiftP(index)">shift</button>
         </li>
     </ul>
+
+    <button @click="add({name:'scofi',age:24})">add</button>
+    <button @click="reverse">reverse</button>
+    <div>
+        <button @click="setOrderType(2)">年龄升序</button>
+        <button @click="setOrderType(1)">年龄降序</button>
+        <button @click="setOrderType(0)">原本顺序</button>
+    </div>
 
 </div>
 
@@ -22,6 +35,8 @@
     new Vue({
         el: "#demo",
         data: {
+            searchName: '',
+            orderType: 0,
             persons: [
                 {name: 'Tom', age: 18},
                 {name: 'Jack', age: 17},
@@ -29,10 +44,47 @@
                 {name: 'Mary', age: 16}
             ]
         },
-        methods:{
-
+        computed: {
+            filterPersons() {
+                const {searchName, orderType, persons} = this
+                let arr = [...persons]
+                if (searchName.trim()) {
+                    arr = persons.filter(p => p.name.indexOf(searchName) !== -1);
+                }
+                if (orderType) {
+                    arr.sort(function (p1, p2) {
+                        if (orderType == 2) {
+                            return p1.age - p2.age
+                        } else {
+                            return p2.age - p1.age
+                        }
+                    })
+                }
+                return arr
+            }
+        },
+        methods: {
+            deleteP(index) {
+                this.persons.splice(index, 1)
+            },
+            add(newP) {
+                this.persons.push(newP)
+            },
+            reverse() {
+                this.persons.reverse()
+            },
+            updateP(index, updateP) {
+                console.log("updateP()", index, updateP)
+                this.persons.splice(index, 1, updateP)
+            },
+            shiftP(index) {
+                this.persons.shift(index)
+            },
+            setOrderType(value) {
+                this.orderType = value
+            }
         }
-    })
+    });
 </script>
 </body>
 </html>
