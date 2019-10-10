@@ -45,6 +45,8 @@
   // binding: 包含指令相关数据的容器对象
   Vue.directive('upper-text', function (el, binding) {
     console.log(el, binding)
+    console.log('el----', el)
+    console.log('binding---', binding)
     el.textContent = binding.value.toUpperCase()
   })
   new Vue({

@@ -8,6 +8,7 @@
 <div id="demo">
     <form action="/xxx" @submit.prevent="submit">
         <span>用户名: </span>
+        <input type="text" v-model.number="username"><br>
         <input type="text" v-model="username"><br>
 
         <span>密码: </span>
@@ -20,39 +21,43 @@
         <label for="male">男</label><br>
 
         <span>爱好: </span>
-        <input type="checkbox" id="basket" value="basket" v-model="likes">
-        <label for="basket">篮球</label>
-        <input type="checkbox" id="foot" value="foot" v-model="likes">
-        <label for="foot">足球</label>
-        <input type="checkbox" id="pingpang" value="pingpang" v-model="likes">
-        <label for="pingpang">乒乓</label><br>
+        <input type="checkbox" id="basket123" value="basket" v-model="likes">
+        <label for="basket123">篮球</label>
+        <input type="checkbox" id="foot123" value="foot" v-model="likes">
+        <label for="foot123">足球</label>
+        <input type="checkbox" id="pingpang123" value="pingpang" v-model="likes">
+        <label for="pingpang123">乒乓</label><br>
 
         <span>城市: </span>
         <select v-model="cityId">
             <option value="">未选择</option>
-            <option :value="city.id" v-for="(city, index) in allCitys" :key="city.id">{{city.name}}</option>
+            <option v-for="(city, index) in allCitys" :key="city.id">{{city.name}}</option>
         </select><br>
         <span>介绍: </span>
         <textarea rows="10" v-model="info"></textarea><br><br>
 
-        <input type="submit" value="注册" >
+        <input type="submit" value="注册">
     </form>
+    <h2>{{time|dateToString('YYYY-MM-DD')}}</h2>
 </div>
 
 <script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/moment.js/2.22.1/moment.js"></script>
 <script type="text/javascript">
+    Vue.filter("dateToString", (value, format = 'YYYY-MM-DD HH:mm:ss') => moment(value).format(format));
     new Vue({
         el: "#demo",
         data: {
             username: "scofi",
             pwd: "123",
             sex: "女",
-            likes: ['basket','foot'],
+            likes: ['basket', 'foot'],
             allCitys: [{id: 1, name: 'BJ'}, {id: 2, name: 'SS'}, {id: 3, name: 'SZ'}],
-            cityId: 1,
-            info:"woshishabi"
+            cityId: 'SS',
+            info: "woshishabi",
+            time: new Date()
         },
-        methods:{
+        methods: {
             submit() {
                 console.log(this.username, this.pwd, this.sex, this.likes, this.cityId, this.info)
             }
